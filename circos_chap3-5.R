@@ -1,7 +1,12 @@
 library(circlize)
 library(dplyr)
 
-load('circos_chap3.Rdata')
+
+############
+# CHAPTER 3
+############
+
+rm(list = ls()); gc(); load('circos_chap3.Rdata')
 
 setEPS()
 postscript("circos-bios.eps", height = 6, width = 5)
@@ -36,12 +41,16 @@ for (currentGRS in sample( unique(pairs$grs) )) {
       }
     }
   }
+  title(main = list("3", col = "darkgrey"))
 }
 dev.off()
 
 
-load('circos_chap4.Rdata')
+############
+# CHAPTER 4
+############
 
+rm(list = ls()); gc(); load('circos_chap4.Rdata')
 
 setEPS()
 postscript("circos-x.eps", height = 3, width = 1)
@@ -70,12 +79,16 @@ for (currentGRS in sample( unique(pairs$grs) )) {
     
     circos.link(grsChr, c(grsStart, grsEnd), probeChr, c(probeStart, probeEnd), col = "#d4526a")
   }
+  text("ch4", x = -0.8, y = 1, col = "darkgrey", cex = 0.8)
 }
 dev.off()
 
 
-load('circos_chap5.Rdata')
+############
+# CHAPTER 5
+############
 
+rm(list = ls()); gc(); load('circos_chap5.Rdata')
 
 setEPS()
 postscript("circos-networks.eps", height = 6, width = 5)
@@ -104,6 +117,7 @@ for (currentGRS in sample( unique(pairs$grs) )) {
     
     circos.link(grsChr, c(grsStart, grsEnd), probeChr, c(probeStart, probeEnd), col = "#ecc771")
   }
+  title(main = list("5", col = "darkgrey"))
 }
 dev.off()
 
