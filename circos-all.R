@@ -1,17 +1,19 @@
 library(circlize)
 library(dplyr)
 
-width <- 6
-height <- 11
-titleX <- -0.8
-titleY <- 1
+width <- 7
+height <- 12
+titleX <- -0.95
+titleY <- 0.9
 titles <- c('3', '4', '5')
 cols <- c("#637694", "#d4526a", "#ecc771")
+titleCex <- 2
 
 setEPS()
-postscript("circos-all.eps", height = height, width = width)
+postscript("circos-all.eps", height = 24, width = 17)
 par(mfrow = c(height, width))
 
+nPlots <- 0
 
 ############
 # CHAPTER 3
@@ -20,7 +22,6 @@ par(mfrow = c(height, width))
 load('circos_chap3.Rdata')
 
 for (currentGRS in sample( unique(pairs$grs) )) {
-  
   probes <- pairs$probe[pairs$grs == currentGRS]
   
   grsStart <- grsSectors$grs_sector_start[grsSectors$grs == currentGRS]
@@ -50,7 +51,7 @@ for (currentGRS in sample( unique(pairs$grs) )) {
       }
     }
   }
-  text(titles[1], x = titleX, y = titleY, col = "darkgrey", cex = 0.8)
+  text(titles[1], x = titleX, y = titleY, col = "grey", cex = titleCex)
 }
 
 
@@ -61,7 +62,6 @@ for (currentGRS in sample( unique(pairs$grs) )) {
 load('circos_chap4.Rdata')
 
 for (currentGRS in sample( unique(pairs$grs) )) {
-  
   probes <- pairs$probe[pairs$grs == currentGRS]
   
   grsStart <- grsSectors$grs_sector_start[grsSectors$grs == currentGRS] %>% unique()
@@ -85,7 +85,7 @@ for (currentGRS in sample( unique(pairs$grs) )) {
     
     circos.link(grsChr, c(grsStart, grsEnd), probeChr, c(probeStart, probeEnd), col = col) # cols[2]
   }
-  text(titles[2], x = titleX, y = titleY, col = "darkgrey", cex = 0.8)
+  text(titles[2], x = titleX, y = titleY, col = "grey", cex = titleCex)
 }
 
 
@@ -96,7 +96,6 @@ for (currentGRS in sample( unique(pairs$grs) )) {
 load('circos_chap5.Rdata')
 
 for (currentGRS in sample( unique(pairs$grs) )) {
-  
   probes <- pairs$probe[pairs$grs == currentGRS]
   
   grsStart <- grsSectors$grs_sector_start[grsSectors$grs == currentGRS]
@@ -120,7 +119,7 @@ for (currentGRS in sample( unique(pairs$grs) )) {
     
     circos.link(grsChr, c(grsStart, grsEnd), probeChr, c(probeStart, probeEnd), col = col) # cols[3]
   }
-  text(titles[3], x = titleX, y = titleY, col = "darkgrey", cex = 0.8)
+  text(titles[3], x = titleX, y = titleY, col = "grey", cex = titleCex)
 }
 
 dev.off()
