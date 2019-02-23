@@ -6,11 +6,21 @@ height <- 12
 titleX <- -0.95
 titleY <- 0.9
 titles <- c('3', '4', '5')
-cols <- c("#637694", "#d4526a", "#ecc771")
-titleCex <- 2
+cols <- c("#637694", "#ecc771", "#d4526a")
+cols <- c("#A4CABC", "#EAB364", "#B2473E", "#ACBD78")
+cols <- c("#FE4A49", "#FED766", "#009FB7", "#5FAD56")
+titleCex <- 1
+
+longCols <- sample(cols, prob = c(0.2, 0.3, 0.3, 0.2), size = 66, replace = TRUE)
+longCols <- c(
+  longCols[longCols == cols[1]],
+  longCols[longCols == cols[2]],
+  longCols[longCols == cols[3]],
+  longCols[longCols == cols[4]]
+)
 
 setEPS()
-postscript("circos-all.eps", height = 24, width = 17)
+postscript("circos-all.eps", height = height, width = width)
 par(mfrow = c(height, width))
 
 nPlots <- 0
@@ -22,6 +32,7 @@ nPlots <- 0
 load('circos_chap3.Rdata')
 
 for (currentGRS in sample( unique(pairs$grs) )) {
+  nPlots <- nPlots + 1
   probes <- pairs$probe[pairs$grs == currentGRS]
   
   grsStart <- grsSectors$grs_sector_start[grsSectors$grs == currentGRS]
@@ -33,7 +44,7 @@ for (currentGRS in sample( unique(pairs$grs) )) {
   circos.initialize(factors = factors, xlim = xlim)
   circos.track(
     factors = factors,
-    ylim = c(0, 1), bg.col = "grey",
+    ylim = c(0, 1), bg.col = "darkgrey",
     bg.border = NA, track.height = 0.05
   )
   
@@ -46,12 +57,12 @@ for (currentGRS in sample( unique(pairs$grs) )) {
         probeEnd <- probeSectors$probe_sector_end[probeSectors$probe == probe]
         probeChr <- probeSectors$chr[probeSectors$probe == probe] %>% as.character() %>% as.numeric()
         
-        circos.link(grsChr, c(grsStart, grsEnd), probeChr, c(probeStart, probeEnd), col = col) #cols[1])
+        circos.link(grsChr, c(grsStart, grsEnd), probeChr, c(probeStart, probeEnd), col = longCols[nPlots]) #cols[1])
         doneSectors <- c(doneSectors, probeSectors$label[probeSectors$probe == probe])
       }
     }
   }
-  text(titles[1], x = titleX, y = titleY, col = "grey", cex = titleCex)
+  text(titles[1], x = titleX, y = titleY, col = "darkgrey", cex = titleCex)
 }
 
 
@@ -62,6 +73,7 @@ for (currentGRS in sample( unique(pairs$grs) )) {
 load('circos_chap4.Rdata')
 
 for (currentGRS in sample( unique(pairs$grs) )) {
+  nPlots <- nPlots + 1
   probes <- pairs$probe[pairs$grs == currentGRS]
   
   grsStart <- grsSectors$grs_sector_start[grsSectors$grs == currentGRS] %>% unique()
@@ -73,7 +85,7 @@ for (currentGRS in sample( unique(pairs$grs) )) {
   circos.initialize(factors = factors, xlim = xlim %>% filter(Chromosome %in% c(grsChr, 'X')) %>% select(start, end) %>% as.matrix())
   circos.track(
     factors = factors,
-    ylim = c(0, 1), bg.col = "grey",
+    ylim = c(0, 1), bg.col = "darkgrey",
     bg.border = NA, track.height = 0.05
   )
   
@@ -83,9 +95,9 @@ for (currentGRS in sample( unique(pairs$grs) )) {
     probeEnd <- probeSectors$probe_sector_end[probeSectors$probe == probe]
     probeChr <- probeSectors$chr[probeSectors$probe == probe] %>% as.character()
     
-    circos.link(grsChr, c(grsStart, grsEnd), probeChr, c(probeStart, probeEnd), col = col) # cols[2]
+    circos.link(grsChr, c(grsStart, grsEnd), probeChr, c(probeStart, probeEnd), col = longCols[nPlots]) #cols[2])
   }
-  text(titles[2], x = titleX, y = titleY, col = "grey", cex = titleCex)
+  text(titles[2], x = titleX, y = titleY, col = "darkgrey", cex = titleCex)
 }
 
 
@@ -96,6 +108,7 @@ for (currentGRS in sample( unique(pairs$grs) )) {
 load('circos_chap5.Rdata')
 
 for (currentGRS in sample( unique(pairs$grs) )) {
+  nPlots <- nPlots + 1
   probes <- pairs$probe[pairs$grs == currentGRS]
   
   grsStart <- grsSectors$grs_sector_start[grsSectors$grs == currentGRS]
@@ -107,7 +120,7 @@ for (currentGRS in sample( unique(pairs$grs) )) {
   circos.initialize(factors = factors, xlim = xlim)
   circos.track(
     factors = factors,
-    ylim = c(0, 1), bg.col = "grey",
+    ylim = c(0, 1), bg.col = "darkgrey",
     bg.border = NA, track.height = 0.05
   )
   
@@ -117,9 +130,9 @@ for (currentGRS in sample( unique(pairs$grs) )) {
     probeEnd <- probeSectors$probe_sector_end[probeSectors$probe == probe]
     probeChr <- probeSectors$chr[probeSectors$probe == probe] %>% as.character() %>% as.numeric()
     
-    circos.link(grsChr, c(grsStart, grsEnd), probeChr, c(probeStart, probeEnd), col = col) # cols[3]
+    circos.link(grsChr, c(grsStart, grsEnd), probeChr, c(probeStart, probeEnd), col = longCols[nPlots]) #cols[3])
   }
-  text(titles[3], x = titleX, y = titleY, col = "grey", cex = titleCex)
+  text(titles[3], x = titleX, y = titleY, col = "darkgrey", cex = titleCex)
 }
 
 dev.off()
