@@ -1,5 +1,8 @@
 require(RColorBrewer)
 library(circlize)
+library(dplyr)
+
+load("circos_chap5.Rdata")
 
 setEPS()
 postscript("circos-test.eps", height = 6, width = 6)
@@ -15,8 +18,9 @@ circos.track(
 
 
 tab <- sort(table(pairs$grs), decreasing = TRUE)
-pal <- brewer.pal(n = 8, name = "OrRd")
-pal <- c("#c57b3d", "#c2c991", "#b2dae7", "#c1cb4d", "#bc7244", "#d4c650", "#b6994e")
+pal <- brewer.pal(n = 8, name = "Blues")
+# pal <- c("#c57b3d", "#c2c991", "#b2dae7", "#c1cb4d", "#bc7244", "#d4c650", "#b6994e")
+# pal <- c("#90AFC5", "#336B87", "#2A3132"); pal <- rep(pal, length = 7)
 names(pal) <- head(names(tab), length(pal))
 for (currentGRS in names(pal)) {
   
@@ -46,5 +50,5 @@ for (currentGRS in names(pal)) {
 
 dev.off()
 
-c("#c57b3d", "#c2c991", "#b2dae7", "#c1cb4d", "#bc7244", "#d4c650", "#b6994e", "#b9e4ed")
+# c("#c57b3d", "#c2c991", "#b2dae7", "#c1cb4d", "#bc7244", "#d4c650", "#b6994e", "#b9e4ed")
 
